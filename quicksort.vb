@@ -8,12 +8,7 @@ Module quicksort
         Dim placedLocations(8) As Boolean
         sortArray(testArray, placedLocations, 0)
     End Sub
-    Function getPivotLocation(ByVal lengthOfArray As Integer) As Integer
-        If lengthOfArray Mod 2 <> 0 Then
-            Return (lengthOfArray \ 2)
-        Else Return (lengthOfArray \ 2) - 1
-        End If
-    End Function
+
     Function sortArray(ByRef subArray As Object(), ByRef placedArray As Boolean(), ByVal snipIndex As Integer)
         Dim subArrayLength As Integer
         subArrayLength = subArray.Length
@@ -57,5 +52,11 @@ Module quicksort
         Next
 
         Return subArray
+    End Function
+    Function getPivotLocation(ByVal lengthOfArray As Integer) As Integer
+        If lengthOfArray Mod 2 <> 0 Then
+            Return (lengthOfArray \ 2)
+        Else Return (lengthOfArray \ 2) - 1
+        End If
     End Function
 End Module
