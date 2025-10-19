@@ -5,45 +5,57 @@ Module quicksort
     Sub Main(args As String())
         Dim testArray(8) As Object
         testArray = {0, 63, 1, 4, 8, 2, 5, 5, 7}
-        swapElements(testArray)
+        Dim placedLocations(8) As Boolean
+        sortArray(testArray, placedLocations, 0)
     End Sub
-    Function quickSort(ByRef arrayToSort As Object()) As Object()
-
+    Function getPivotLocation(ByVal lengthOfArray As Integer) As Integer
+        If lengthOfArray Mod 2 <> 0 Then
+            Return (lengthOfArray \ 2)
+        Else Return (lengthOfArray \ 2) - 1
+        End If
     End Function
-    Function splitList(ByRef arrayToSplit As Object())
-        Dim arrayLength = arrayToSplit.Length
+    Function sortArray(ByRef subArray As Object(), ByRef placedArray As Boolean(), ByVal snipIndex As Integer)
+        Dim subArrayLength As Integer
+        subArrayLength = subArray.Length
+        Dim smallerObjArray(subArrayLength - 1) As Object
+        Dim sameObjArray(subArrayLength - 1) As Object
+        Dim biggerObjArray(subArrayLength - 1) As Object
 
-    End Function
-    Function swapElements(ByRef subArray As Object()) As Object()
-        Dim pivot As Integer
-        Dim pivotNum As Object
-        Dim smallCount As Integer
-        Dim bigCount As Integer
-        smallCount = 0
-        bigCount = 0
-        Dim smallOnes(subArray.Length) As Object
-        Dim bigOnes(subArray.Length) As Object
-        pivot = (subArray.Length) / 2
-        If pivot Mod 2 <> 0 Then pivot = pivot + 1
-        pivotNum = subArray(pivot)
+        Dim pivot As Object
+        pivot = subArray(getPivotLocation(subArrayLength))
 
-        For i = 0 To subArray.Length - 1
-            If subArray(i) < pivotNum Then
-                smallOnes(smallCount) = subArray(i)
-                smallCount = smallCount + 1
-            End If
-            If subArray(i) >= pivotNum Then
-                bigOnes(bigCount) = subArray(i)
-                bigCount = bigCount + 1
-            End If
+        Dim smallerAmount As Integer
+        Dim sameAmout As Integer
+        Dim biggerAmount As Integer
+        smallerAmount = 0
+        sameAmout = 0
+        biggerAmount = 0
+
+        For x = 0 To subArrayLength - 1
+            Select Case subArray(x)
+                Case < pivot
+                    smallerObjArray(smallerAmount) = subArray(x)
+                    smallerAmount = smallerAmount + 1
+                Case = pivot
+                    sameObjArray(sameAmout) = subArray(x)
+                    sameAmout = sameAmout + 1
+                Case > pivot
+                    biggerObjArray(biggerAmount) = subArray(x)
+                    biggerAmount = biggerAmount + 1
+            End Select
         Next
 
-        For x = 0 To smallCount - 1
-            subArray(x) = smallOnes(x)
+        For x = 0 To smallerAmount - 1
+            subArray(x) = smallerObjArray(x)
         Next
-        For x = smallCount To subArray.Length - 1
-            subArray(x) = bigOnes(x - smallCount)
+        For x = smallerAmount To (smallerAmount + sameAmout - 1)
+            subArray(x) = sameObjArray(x - (smallerAmount + sameAmout - 1))
         Next
+        placedArray(snipIndex + (smallerAmount + sameAmout - 1)) = True
+        For x = (smallerAmount + sameAmout) To (subArrayLength - 1)
+            subArray(x) = biggerObjArray(x - (subArrayLength - 1))
+        Next
+
         Return subArray
     End Function
 End Module
