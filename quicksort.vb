@@ -29,7 +29,7 @@ Module quicksort
             x = x + 1
         Loop Until arrayToSort.Length - 1
     End Function
-    Function sortArray(ByRef subArray As Object(), ByRef placedArray As Boolean(), ByVal snipIndex As Integer)
+    Function sortSubArray(ByRef subArray As Object(), ByRef placedArray As Boolean(), ByVal snipIndex As Integer)
         Dim subArrayLength As Integer
         subArrayLength = subArray.Length
         Dim smallerObjArray(subArrayLength - 1) As Object
