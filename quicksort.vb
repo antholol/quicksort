@@ -6,7 +6,7 @@ Module quicksort
         Dim testArray(8) As Object
         testArray = {0, 63, 1, 4, 8, 2, 5, 5, 7}
         Dim placedLocations(8) As Boolean
-        sortArray(testArray, placedLocations, 0)
+        sortSubArray(testArray, placedLocations, 0)
     End Sub
     Function reorganiseArray(ByRef arrayToSort As Object(), ByRef placedLocations As Boolean())
         Dim subArraylengthCount As Integer
@@ -28,6 +28,7 @@ Module quicksort
 
             x = x + 1
         Loop Until arrayToSort.Length - 1
+
     End Function
     Function sortSubArray(ByRef subArray As Object(), ByRef placedArray As Boolean(), ByVal snipIndex As Integer)
         Dim subArrayLength As Integer
@@ -74,6 +75,7 @@ Module quicksort
         Return subArray
     End Function
     Function getPivotLocation(ByVal lengthOfArray As Integer) As Integer
+        If lengthOfArray = 0 Then Return 0
         If lengthOfArray Mod 2 <> 0 Then
             Return (lengthOfArray \ 2)
         Else Return (lengthOfArray \ 2) - 1
